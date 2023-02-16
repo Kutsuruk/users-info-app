@@ -1,10 +1,10 @@
 import Qualities from "./Qualities";
 import Bookmark from "./Bookmark";
-const User = ({users, handleDelete}) => {
+const User = ({handleDelete, handleToggleBookMark, userCrop}) => {
     return(
         <>
             {
-                users.map((user) => (
+                userCrop.map((user) => (
                     <tr key={user._id}>
                         <td>{user.name}</td>
                         <td>
@@ -14,7 +14,7 @@ const User = ({users, handleDelete}) => {
                         <td>{user.completedMeetings}</td>
                         <td>{user.rate}</td>
                         <td>
-                            <Bookmark />
+                            <Bookmark handleToggleBookMark={handleToggleBookMark} />
                         </td>
                         <td>
                             <button
