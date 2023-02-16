@@ -1,9 +1,14 @@
 import Users from "./components/Users";
+import SearchStatus from "./components/SearchStatus";
+import {useState} from "react";
+import api from "./api";
 
 function App() {
-  return (
+    const [users, setUsers] = useState(api.users.fetchAll())
+    return (
     <div>
-      <Users />
+        <SearchStatus users={users} />
+        <Users users={users} setUsers={setUsers} />
     </div>
   );
 }

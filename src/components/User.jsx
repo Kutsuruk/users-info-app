@@ -10,7 +10,7 @@ const User = ({handleDelete, handleToggleBookMark, userCrop}) => {
                         <td>
                             <Qualities user={user} />
                         </td>
-                        <td>{user.profession.name}</td>
+                        <td>user.profession.name</td>
                         <td>{user.completedMeetings}</td>
                         <td>{user.rate}</td>
                         <td>
