@@ -10,6 +10,7 @@ const Users = () => {
         setUsers(newUsers)
     }
 
+
     return(
         <div>
             <SearchStatus users={users} />
@@ -29,7 +30,9 @@ const Users = () => {
                         </tr>
                         </thead>
                         <tbody>
-                            <User users={users} handleDelete={handleDelete} />
+                            <User users={users}
+                                  handleDelete={handleDelete}
+                            />
                         </tbody>
                     </table>
                 )
