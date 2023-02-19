@@ -1,20 +1,24 @@
 import User from "./User";
 import PropTypes from "prop-types";
+import TableHeader from "./TableHeader";
 
-const UsersTable = ({users, handleDelete, userCrop, onSort}) => {
+const UsersTable = ({users, handleDelete, userCrop, onSort, selectedSort}) => {
+    const column = {
+        name: {iter: 'name', name: 'Имя'},
+        qualities: {name: 'Качества'},
+        profession: {iter: 'profession.name', name: 'Профессия'},
+        completedMeetings: {iter: 'completedMeetings', name: 'Встретился, раз'},
+        rate: {iter: 'rate', name: 'Оценка'},
+        bookmark: {iter: 'bookmark', name: 'Избранное'},
+        delete: {},
+    }
+
     return(
         <table className="table">
-            <thead>
-            <tr>
-                <th onClick={() => onSort('name')} scope="col">Name</th>
-                <th scope="col">Qualities</th>
-                <th onClick={() => onSort('profession.name')} scope="col">Profession</th>
-                <th onClick={() => onSort('completedMeetings')} scope="col">Meet/times</th>
-                <th onClick={() => onSort('rate')} scope="col">Rating</th>
-                <th onClick={() => onSort('bookmark')} scope="col">Bookmark</th>
-                <th></th>
-            </tr>
-            </thead>
+            <TableHeader selectedSort={selectedSort}
+                         onSort={onSort}
+                         columns={column}
+            />
             <tbody>
             <User users={users}
                   handleDelete={handleDelete}
@@ -30,6 +34,7 @@ UsersTable.propTypes = {
     handleDelete: PropTypes.func.isRequired,
     userCrop: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
+    selectedSort: PropTypes.object.isRequired,
 }
 
 export default UsersTable

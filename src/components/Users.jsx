@@ -40,16 +40,7 @@ const Users = ({users, setUsers}) => {
     }
 
     const handleSort = (item) => {
-        if (sortBy.iter === item) {
-            setSortBy((prevState) => {
-                return ({
-                    ...prevState,
-                    order: prevState.order === 'asc' ? 'desc' : 'asc'
-                })
-            })
-        } else {
-            setSortBy({iter: item, order: 'asc'})
-        }
+        setSortBy(item)
     }
 
     useEffect(() => {
@@ -85,6 +76,7 @@ const Users = ({users, setUsers}) => {
                                     userCrop={userCrop}
                                     handleDelete={handleDelete}
                                     onSort={handleSort}
+                                    selectedSort={sortBy}
                         />
                     )
                 }
