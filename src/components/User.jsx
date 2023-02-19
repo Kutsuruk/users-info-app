@@ -1,6 +1,6 @@
 import Qualities from "./Qualities";
 import Bookmark from "./Bookmark";
-const User = ({handleDelete, handleToggleBookMark, userCrop}) => {
+const User = ({ handleDelete, handleToggleBookMark, userCrop }) => {
     return(
         <>
             {
@@ -10,7 +10,9 @@ const User = ({handleDelete, handleToggleBookMark, userCrop}) => {
                         <td>
                             <Qualities user={user} />
                         </td>
-                        <td>user.profession.name</td>
+                        <td>
+                            {}
+                        </td>
                         <td>{user.completedMeetings}</td>
                         <td>{user.rate}</td>
                         <td>

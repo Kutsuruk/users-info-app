@@ -9,7 +9,6 @@ import GroupList from "./GroupList"
 const Users = ({users, setUsers}) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState([])
-    console.log(professions)
 
     const count = users.length
     const pageSize = 4
@@ -19,9 +18,11 @@ const Users = ({users, setUsers}) => {
         const newUsers = users.filter((user) => user._id !== id)
         setUsers(newUsers)
     }
+
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex)
     }
+
     const handleProfessionSelect = (params) => {
         console.log('params', params)
     }
@@ -29,12 +30,22 @@ const Users = ({users, setUsers}) => {
     useEffect(() => {
         api.professions.fetchAll()
             .then(data => setProfessions(data))
-    }, [currentPage])
+    }, [])
 
     return(
         <div>
-            <GroupList items={professions} onItemSelect={handleProfessionSelect} />
-            {users.length > 0 && (
+            {
+                professions && (
+                    <GroupList items={professions}
+                               onItemSelect={handleProfessionSelect}
+                               valueProperty="_id"
+                                contentProperty="name"
+                    />
+                )
+            }
+
+            {
+                users.length > 0 && (
                 <table className="table">
                     <thead>
                     <tr>
@@ -53,8 +64,8 @@ const Users = ({users, setUsers}) => {
                           userCrop={userCrop}
                     />
                     </tbody>
-                </table>
-            )}
+                </table>)
+            }
             <Pagination itemsCount={count}
                         pageSize={pageSize}
                         onPageChange={handlePageChange}
