@@ -8,9 +8,9 @@ const SearchStatus = ({users}) => {
     }
 
     return(
-        <span className={'badge bg-'+(users.length > 0 ? 'primary' : 'danger')}>
+        <h1 className={'badge bg-'+(users.length > 0 ? 'primary' : 'danger')}>
                 {renderPhrase()}
-        </span>
+        </h1>
     )
 }
 

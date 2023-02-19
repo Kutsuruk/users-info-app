@@ -9,10 +9,14 @@ import GroupList from "./GroupList"
 const Users = ({users, setUsers}) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState([])
+    const [selectedProf, setSelectedProf] = useState()
 
     const count = users.length
     const pageSize = 4
-    const userCrop = paginate(users, currentPage, pageSize)
+    const filteredUsers = selectedProf
+        ? users.filter(user => user.profession === selectedProf)
+        : users
+    const userCrop = paginate(filteredUsers, currentPage, pageSize)
 
     const handleDelete = (id) => {
         const newUsers = users.filter((user) => user._id !== id)
@@ -23,26 +27,32 @@ const Users = ({users, setUsers}) => {
         setCurrentPage(pageIndex)
     }
 
-    const handleProfessionSelect = (params) => {
-        console.log('params', params)
+    const handleProfessionSelect = (item) => {
+        setSelectedProf(item)
+    }
+
+    const clearFilter = () => {
+        setSelectedProf(undefined)
     }
 
     useEffect(() => {
         api.professions.fetchAll()
-            .then(data => setProfessions(data))
+            .then((data) =>
+                setProfessions(data)
+            )
     }, [])
 
     return(
         <div>
-            {
-                professions && (
+            {professions && (
+                <>
                     <GroupList items={professions}
                                onItemSelect={handleProfessionSelect}
-                               valueProperty="_id"
-                                contentProperty="name"
+                               selectedItem={selectedProf}
                     />
-                )
-            }
+                    <button className='btn btn-secondary mt-2' onClick={clearFilter}>Clear filter</button>
+                </>
+            )}
 
             {
                 users.length > 0 && (
