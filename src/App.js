@@ -7,8 +7,7 @@ function App() {
     const [users, setUsers] = useState(api.users.fetchAll())
     return (
     <div>
-        <SearchStatus users={users} />
-        <Users users={users} setUsers={setUsers} />
+        { users && <Users users={users} setUsers={setUsers} /> }
     </div>
   );
 }
