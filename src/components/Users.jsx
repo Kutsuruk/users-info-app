@@ -1,24 +1,26 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import api from '../api'
 import {useState, useEffect} from "react"
-import User from "./User"
 import Pagination from "./Pagination"
 import {paginate} from "../utils/paginate"
 import GroupList from "./GroupList"
-import SearchStatus from "./SearchStatus";
-import UsersTable from "./UsersTable";
+import SearchStatus from "./SearchStatus"
+import UsersTable from "./UsersTable"
+import _ from 'lodash'
 
 const Users = ({users, setUsers}) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState([])
     const [selectedProf, setSelectedProf] = useState()
+    const [sortBy, setSortBy] = useState({iter: 'name', order: 'asc'})
 
-    const pageSize = 2
+    const pageSize = 8
     const filteredUsers = selectedProf
         ? users.filter(user => user.profession === selectedProf)
         : users
     const count = filteredUsers.length
-    const userCrop = paginate(filteredUsers, currentPage, pageSize)
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order])
+    const userCrop = paginate(sortedUsers, currentPage, pageSize)
 
     const handleDelete = (id) => {
         const newUsers = users.filter((user) => user._id !== id)
@@ -38,7 +40,16 @@ const Users = ({users, setUsers}) => {
     }
 
     const handleSort = (item) => {
-        console.log('item', item)
+        if (sortBy.iter === item) {
+            setSortBy((prevState) => {
+                return ({
+                    ...prevState,
+                    order: prevState.order === 'asc' ? 'desc' : 'asc'
+                })
+            })
+        } else {
+            setSortBy({iter: item, order: 'asc'})
+        }
     }
 
     useEffect(() => {
