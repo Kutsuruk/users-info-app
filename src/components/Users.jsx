@@ -6,6 +6,7 @@ import Pagination from "./Pagination"
 import {paginate} from "../utils/paginate"
 import GroupList from "./GroupList"
 import SearchStatus from "./SearchStatus";
+import UsersTable from "./UsersTable";
 
 const Users = ({users, setUsers}) => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -34,6 +35,10 @@ const Users = ({users, setUsers}) => {
 
     const clearFilter = () => {
         setSelectedProf(undefined)
+    }
+
+    const handleSort = (item) => {
+        console.log('item', item)
     }
 
     useEffect(() => {
@@ -65,25 +70,12 @@ const Users = ({users, setUsers}) => {
                 <SearchStatus users={filteredUsers} />
                 {
                     filteredUsers.length > 0 && (
-                            <table className="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Qualities</th>
-                                    <th scope="col">Profession</th>
-                                    <th scope="col">Meet/times</th>
-                                    <th scope="col">Rating</th>
-                                    <th scope="col">Bookmark</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <User users={users}
-                                      handleDelete={handleDelete}
-                                      userCrop={userCrop}
-                                />
-                                </tbody>
-                            </table>)
+                        <UsersTable users={users}
+                                    userCrop={userCrop}
+                                    handleDelete={handleDelete}
+                                    onSort={handleSort}
+                        />
+                    )
                 }
 
                 <div className='d-flex justify-content-center'>
