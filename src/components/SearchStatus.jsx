@@ -1,17 +1,30 @@
-const SearchStatus = ({users}) => {
-    const renderPhrase = () => {
-        if (users.length > 0) {
-            return `Ready to hang-out with you ${users.length} users.`
-        } else {
-            return 'Nobody wants to hang-out with you.'
+import PropTypes from "prop-types"
+const SearchStatus = ({ length }) => {
+    const renderPhrase = (number) => {
+        const lastOne = Number(number.toString().slice(-1))
+        if (number > 4 && number < 15) {
+            return "человек тусанет"
         }
+        if (lastOne === 1) return "человек тусанет"
+        if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанут"
+        return "человек тусанет"
     }
 
-    return(
-        <h1 className={'badge bg-'+(users.length > 0 ? 'primary' : 'danger')}>
-                {renderPhrase()}
-        </h1>
+    return (
+        <h2>
+            <span
+                className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}
+            >
+                {length > 0
+                    ? `${length + " " + renderPhrase(length)}   с тобой сегодня`
+                    : "Никто с тобой не тусанет"}
+            </span>
+        </h2>
     )
+}
+
+SearchStatus.propTypes = {
+    length: PropTypes.number
 }
 
 export default SearchStatus

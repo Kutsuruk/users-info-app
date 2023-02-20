@@ -1,15 +1,8 @@
-import Users from "./components/Users";
-import SearchStatus from "./components/SearchStatus";
-import {useState} from "react";
-import api from "./api";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Users from "./components/Users"
 
 function App() {
-    const [users, setUsers] = useState(api.users.fetchAll())
-    return (
-    <div>
-        { users && <Users users={users} setUsers={setUsers} /> }
-    </div>
-  );
+    return <Users />
 }
 
-export default App;
+export default App
