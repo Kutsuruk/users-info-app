@@ -12,13 +12,14 @@ const Users = () => {
     const [professions, setProfession] = useState()
     const [selectedProf, setSelectedProf] = useState()
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" })
-    const pageSize = 8
-
     const [users, setUsers] = useState()
+
+    const pageSize = 4
 
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data))
     }, [])
+
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId))
     }
