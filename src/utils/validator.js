@@ -1,14 +1,37 @@
 export function validator(data, config) {
     const errors = {}
     function validate(validateMethod, data, config) {
+        let statusValidate
+
         switch (validateMethod) {
             case 'isRequired':
-                if (data.trim() === '') return config.message
+                statusValidate = data.trim() === ''
+                break
+
+            case 'isEmail':
+                const emailRegExp = /^\S+@\S+\.\S+$/g
+                statusValidate = !emailRegExp.test(data)
+                break
+
+            case 'isCapitalistSymbol':
+                const passwordRegExp = /[A-Z]+/g
+                statusValidate = !passwordRegExp.test(data)
+                break
+
+            case 'isContainDigit':
+                const digitRegExp = /\d/g
+                statusValidate = !digitRegExp.test(data)
+                break
+
+            case 'isMin':
+                statusValidate = data.length < config.value
                 break
 
             default:
                 break
         }
+
+        if (statusValidate) return config.message
     }
 
     for (const fieldName in data) {
@@ -19,7 +42,7 @@ export function validator(data, config) {
                 config[fieldName][validateMethod]
             )
 
-            if (error) {
+            if (error && !errors[fieldName]) {
                 errors[fieldName] = error
             }
         }

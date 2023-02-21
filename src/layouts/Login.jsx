@@ -34,11 +34,25 @@ const Login = () => {
         email: {
             isRequired: {
                 message: 'Email обязательно для заполнения'
-            }},
+            },
+            isEmail: {
+                message: 'Email введен некорректно'
+            }
+        },
         password: {
             isRequired: {
                 message: 'Password обязательно для заполнения'
-            }},
+            },
+            isCapitalistSymbol: {
+                message: 'Password должен содержать заглавную букву'
+            },
+            isContainDigit: {
+                message: 'Password должен содержать хотя бы одно число'
+            },
+            isMin: {
+                message: 'Password должен содержать минимум 8 символов'
+            }
+            },
     }
 
 
