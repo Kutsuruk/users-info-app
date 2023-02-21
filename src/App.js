@@ -12,7 +12,7 @@ function App() {
             <Navbar />
             <Switch>
                 <Route exact path='/' component={Main} />
-                <Route exact path='/login' component={Login} />
+                <Route exact path='/login/:type?' component={Login} />
                 <Route exact path='/users/:userId?' component={Users} />
 
                 <Redirect to='/' />
