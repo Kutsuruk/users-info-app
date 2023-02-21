@@ -30,6 +30,8 @@ const Login = () => {
         return Object.keys(errors).length === 0
     }
 
+    const isValid = Object.keys(errors).length === 0
+
     const validatorConfig = {
         email: {
             isRequired: {
@@ -61,26 +63,36 @@ const Login = () => {
     }, [data])
 
     return(
-        <>
-            <h1 className='display-4'>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <TextField label='Email'
-                           value={data.email}
-                           onChange={handleChange}
-                           name='email'
-                           error={errors.email}
-                />
-                <TextField label='Password'
-                           type='password'
-                           value={data.password}
-                           onChange={handleChange}
-                           name='password'
-                           error={errors.password}
-                />
+        <div className='container mt-5'>
+            <div className='row'>
+                <div className='col-md-6 offset-md-3 p-4'>
+                    <h3 className='display-4 mb-4'>Login form</h3>
 
-                <button className="btn btn-primary mt-3" type='submit'>Login</button>
-            </form>
-        </>
+                    <form onSubmit={handleSubmit}>
+                        <TextField label='Email'
+                                   value={data.email}
+                                   onChange={handleChange}
+                                   name='email'
+                                   error={errors.email}
+                        />
+                        <TextField label='Password'
+                                   type='password'
+                                   value={data.password}
+                                   onChange={handleChange}
+                                   name='password'
+                                   error={errors.password}
+                        />
+
+                        <button className="btn btn-primary w-100 mx-auto"
+                                type='submit'
+                                disabled={!isValid}
+                        >
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     )
 }
 
