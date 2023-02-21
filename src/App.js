@@ -2,9 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from "./components/Navbar"
 import {Switch, Route, Redirect} from 'react-router-dom'
 
-import Main from "./layout/Main"
-import Login from "./layout/Login"
-import Users from "./layout/Users"
+import Main from "./layouts/Main"
+import Login from "./layouts/Login"
+import Users from "./layouts/Users"
 
 function App() {
     return(
