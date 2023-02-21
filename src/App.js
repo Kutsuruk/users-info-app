@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Navbar from "./components/Navbar"
+import Navbar from "./components/ui/Navbar"
 import {Switch, Route, Redirect} from 'react-router-dom'
 
 import Main from "./layouts/Main"

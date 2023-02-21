@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom/cjs/react-router-dom";
-import UsersList from "../components/UsersList";
-import UserPage from "../components/UserPage";
+import UsersListPage from "../components/page/UsersListPage/UsersListPage";
+import UserPage from "../components/page/UserPage/UserPage";
 
 const Users = () => {
     const params = useParams()
@@ -9,7 +9,7 @@ const Users = () => {
     return(
         <>
             {
-                userId ? <UserPage userId={userId} /> : <UsersList />
+                userId ? <UserPage userId={userId} /> : <UsersListPage />
             }
         </>
     )
