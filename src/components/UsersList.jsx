@@ -13,6 +13,7 @@ const UsersList = () => {
     const [selectedProf, setSelectedProf] = useState()
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" })
     const [users, setUsers] = useState()
+    const [searchQuery, setSearchQuery] = useState('')
 
     const pageSize = 4
 
@@ -39,9 +40,12 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [selectedProf])
+    }, [selectedProf, searchQuery])
 
     const handleProfessionSelect = (item) => {
+        if (searchQuery !== '') {
+            setSearchQuery('')
+        }
         setSelectedProf(item)
     }
 
@@ -52,8 +56,15 @@ const UsersList = () => {
         setSortBy(item)
     }
 
+    const handleSearchQuery = (e) => {
+        setSelectedProf(null)
+        setSearchQuery(e.target.value)
+    }
+
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = searchQuery
+            ? users.filter((user) => user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
+            : selectedProf
             ? users.filter(
                 (user) =>
                     JSON.stringify(user.profession) ===
@@ -88,6 +99,12 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <input type="text"
+                           name='searchQuery'
+                           placeholder='Search...'
+                           onChange={handleSearchQuery}
+                    />
+
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
