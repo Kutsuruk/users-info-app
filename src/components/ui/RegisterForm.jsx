@@ -3,9 +3,10 @@ import {useEffect, useState} from "react";
 import {validator} from "../../utils/validator";
 import api from "../../api";
 import SelectField from "../common/form/SelectField";
+import RadioField from "../common/form/RadioField";
 
 const RegisterForm = () => {
-    const [data, setData] = useState({email: '', password: '', profession: ''})
+    const [data, setData] = useState({email: '', password: '', profession: '', sex: 'Male'})
     const [errors, setErrors] = useState({})
     const [professions, setProfessions] = useState()
 
@@ -92,6 +93,15 @@ const RegisterForm = () => {
                          defaultOption='Choose...'
                          error={errors.profession}
                          value={data.profession}
+            />
+            <RadioField value={data.sex}
+                        options={[
+                            {name: 'Male', value: 'Male'},
+                            {name: 'Female', value: 'Female'},
+                            {name: 'Other', value: 'Other'}
+                        ]}
+                        name='sex'
+                        onChange={handleChange}
             />
 
             <button className="btn btn-primary w-100 mx-auto"
