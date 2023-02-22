@@ -10,6 +10,10 @@ const TextField = ({label, type, value, onChange, name, error }) => {
         setShowPassword((prevState) => !prevState)
     }
 
+    const handleChange = ({target}) => {
+        onChange({name: target.name, value: target.value})
+    }
+
     return(
         <div className='mb-4'>
             <label htmlFor="email">{label}</label>
@@ -18,7 +22,7 @@ const TextField = ({label, type, value, onChange, name, error }) => {
                        className={getInputClasses()}
                        id={name}
                        value={value}
-                       onChange={onChange}
+                       onChange={handleChange}
                        name={name}
                 />
                 {
