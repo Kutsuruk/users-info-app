@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-const SelectField = ({label, value, onChange, options, defaultOption, error}) => {
+const SelectField = ({label, value, onChange, options, defaultOption, error, name}) => {
     const getInputClasses = () => {
         return error ? 'form-select is-invalid' : 'form-select'
     }
@@ -14,11 +14,11 @@ const SelectField = ({label, value, onChange, options, defaultOption, error}) =>
 
     return(
         <div className="mb-4">
-            <label htmlFor="validationCustom04" className="form-label">
+            <label htmlFor={name} className="form-label">
                 {label}
             </label>
             <select className={getInputClasses()}
-                    id="validationCustom04"
+                    id={name}
                     name='profession'
                     value={value}
                     onChange={handleChange}
@@ -51,6 +51,7 @@ SelectField.propTypes = {
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     defaultOption: PropTypes.string,
     error: PropTypes.string,
+    name: PropTypes.string,
 }
 
 export default SelectField
