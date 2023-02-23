@@ -12,7 +12,9 @@ const UserPage = ({ userId }) => {
         api.users.getById(userId).then((data) => setUser(data))
     }, [])
 
-    const handleClick = () => history.replace('/users')
+    const handleClick = () => {
+        history.push(history.location.pathname + "/edit")
+    }
 
     if (user) {
         return(
@@ -26,7 +28,7 @@ const UserPage = ({ userId }) => {
                         className="btn btn-primary m-1"
                         onClick={handleClick}
                 >
-                    All Users
+                    Change
                 </button>
             </div>
         )
