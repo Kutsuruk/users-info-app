@@ -6,6 +6,7 @@ import SelectField from "../../common/form/SelectField";
 import RadioField from "../../common/form/RadioField";
 import MultiSelectField from "../../common/form/MultiSelectField";
 import {validator} from "../../../utils/validator";
+import BackButton from "../../common/BackButton";
 
 const EditUserPage = () => {
     const { userId } = useParams()
@@ -137,6 +138,7 @@ const EditUserPage = () => {
 
     return (
         <div className="container mt-5">
+            <BackButton />
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
                     {!isLoading && Object.keys(professions).length > 0 ? (

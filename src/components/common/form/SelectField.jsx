@@ -4,6 +4,7 @@ const SelectField = ({label, value, onChange, options, defaultOption, error, nam
         return error ? 'form-select is-invalid' : 'form-select'
     }
 
+    console.log(options)
     const optionsArray = !Array.isArray(options) && typeof options === 'object'
         ? Object.keys(options).map((optionName) => ({name: options[optionName].name, value: options[optionName]._id}))
         : options
@@ -33,6 +34,7 @@ const SelectField = ({label, value, onChange, options, defaultOption, error, nam
                         >
                             {option.name}
                         </option>
+
                     ))
                 }
                 <option value='_id'>...</option>

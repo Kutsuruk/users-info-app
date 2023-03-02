@@ -1,5 +1,5 @@
 
-const MeetingsCard = ({ data }) => {
+const MeetingsCard = ({ value }) => {
     return(
         <div className='card mb-3'>
             <div className='card-body d-flex flex-column justify-content-center text-center'>
@@ -8,7 +8,7 @@ const MeetingsCard = ({ data }) => {
                 </h5>
 
                 <h1 className='display-1'>
-                    {data.completedMeetings}
+                    {value}
                 </h1>
             </div>
         </div>

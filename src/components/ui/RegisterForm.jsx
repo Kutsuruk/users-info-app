@@ -21,7 +21,6 @@ const RegisterForm = () => {
     const [qualities, setQualities] = useState()
 
     const handleChange = (target) => {
-        console.log(target)
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value

@@ -4,6 +4,7 @@ import api from "../../../api";
 import UserCard from "../../ui/UserCard";
 import QualitiesCard from "../../ui/QualitiesCard";
 import MeetingsCard from "../../ui/MeetingsCard";
+import Comments from "../../ui/Comments";
 
 const UserPage = ({ userId }) => {
     const [user, setUser] = useState()
@@ -19,10 +20,10 @@ const UserPage = ({ userId }) => {
                     <div className='col-md-4 mb-3'>
                         <UserCard user={user} />
                         <QualitiesCard data={user.qualities} />
-                        <MeetingsCard data={user} />
+                        <MeetingsCard value={user.completedMeetings} />
                     </div>
                     <div className='col-md-8'>
-                        Comments
+                        <Comments />
                     </div>
                 </div>
             </div>
