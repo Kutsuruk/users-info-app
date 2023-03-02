@@ -3,22 +3,19 @@ import {useEffect, useState} from "react";
 import api from "../../../api";
 import QualitiesList from "../../ui/qualities/QualitiesList";
 import {useHistory} from "react-router-dom";
+import UserCard from "../../ui/UserCard";
 
 const UserPage = ({ userId }) => {
     const [user, setUser] = useState()
-    const history = useHistory()
 
     useEffect(() => {
         api.users.getById(userId).then((data) => setUser(data))
     }, [])
 
-    const handleClick = () => {
-        history.push(history.location.pathname + "/edit")
-    }
-
     if (user) {
         return(
             <div>
+                <UserCard user={user} />
                 <h1>{user.name}</h1>
                 <h2>Profession: {user.profession.name}</h2>
                 <QualitiesList qualities={user.qualities} />
