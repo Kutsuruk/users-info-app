@@ -31,8 +31,9 @@ const UserCard = ({ user }) => {
                     )
                         .toString(36)
                         .substring(7)}.svg`}
-                    className="rounded-circle"
-                    width="150"
+                    className='rounded-circle'
+                    width='150'
+                    alt='User avatar'
                 />
                 <div className='mt-3'>
                     <h4>{user.name}</h4>

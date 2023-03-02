@@ -1,9 +1,9 @@
 import PropTypes from "prop-types"
 import {useEffect, useState} from "react";
 import api from "../../../api";
-import QualitiesList from "../../ui/qualities/QualitiesList";
-import {useHistory} from "react-router-dom";
 import UserCard from "../../ui/UserCard";
+import QualitiesCard from "../../ui/QualitiesCard";
+import MeetingsCard from "../../ui/MeetingsCard";
 
 const UserPage = ({ userId }) => {
     const [user, setUser] = useState()
@@ -14,19 +14,17 @@ const UserPage = ({ userId }) => {
 
     if (user) {
         return(
-            <div>
-                <UserCard user={user} />
-                <h1>{user.name}</h1>
-                <h2>Profession: {user.profession.name}</h2>
-                <QualitiesList qualities={user.qualities} />
-                <p>Completed Meetings: {user.completedMeetings}</p>
-                <h2>Rate: {user.rate}</h2>
-                <button type="button"
-                        className="btn btn-primary m-1"
-                        onClick={handleClick}
-                >
-                    Change
-                </button>
+            <div className='container'>
+                <div className='row gutters-sm'>
+                    <div className='col-md-4 mb-3'>
+                        <UserCard user={user} />
+                        <QualitiesCard data={user.qualities} />
+                        <MeetingsCard data={user} />
+                    </div>
+                    <div className='col-md-8'>
+                        Comments
+                    </div>
+                </div>
             </div>
         )
     } else {
