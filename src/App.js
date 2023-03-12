@@ -7,15 +7,19 @@ import Users from "./layouts/Users"
 import Navbar from "./components/ui/Navbar"
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import {ProfessionProvider} from "./hooks/useProfessions";
 
 function App() {
     return(
         <>
             <Navbar />
             <Switch>
+                <ProfessionProvider>
+                    <Route exact path='/users/:userId?/:edit?' component={Users} />
+                    <Route exact path='/login/:type?' component={Login} />
+                </ProfessionProvider>
+
                 <Route exact path='/' component={Main} />
-                <Route exact path='/login/:type?' component={Login} />
-                <Route exact path='/users/:userId?/:edit?' component={Users} />
 
                 <Redirect to='/' />
             </Switch>
