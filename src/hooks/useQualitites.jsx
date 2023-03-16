@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from "react"
 import qualityService from "../services/quality.service"
 import {toast} from "react-toastify"
 
-const QualityContext = React.createContext()
+const QualitiesContext = React.createContext()
 
 export const useQualities = () => {
-    return useContext(QualityContext)
+    return useContext(QualitiesContext)
 }
 
 export const QualityProvider = ({children}) => {
@@ -45,14 +45,13 @@ export const QualityProvider = ({children}) => {
     }, [error])
 
     return(
-        <QualityContext.Provider
+        <QualitiesContext.Provider
             value={{
                 qualities,
-                getQualities,
                 getQuality,
                 isLoading
             }}>
             { children }
-        </QualityContext.Provider>
+        </QualitiesContext.Provider>
     )
 }

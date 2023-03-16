@@ -1,12 +1,9 @@
-import PropTypes from "prop-types"
+import {useQualities} from "../../../hooks/useQualitites"
 import Quality from "./Quality"
-import {useQualities} from "../../../hooks/useQualitites";
 
 const QualitiesList = ({ qualities }) => {
-
-    const {isLoading} = useQualities()
-
-    if (isLoading) return 'Loading...'
+    const { isLoading } = useQualities()
+    if (isLoading) return "Loading..."
 
     return (
         <>
@@ -17,8 +14,4 @@ const QualitiesList = ({ qualities }) => {
     )
 }
 
-QualitiesList.propTypes = {
-    qualities: PropTypes.array
-}
-
-export default QualitiesList
+export default QualitiesList;
