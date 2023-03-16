@@ -7,6 +7,7 @@ import MultiSelectField from "../common/form/MultiSelectField";
 import CheckBoxField from "../common/form/CheckBoxField";
 import {useQualities} from "../../hooks/useQualitites";
 import {useProfessions} from "../../hooks/useProfessions";
+import {useAuth} from "../../hooks/useAuth";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -35,6 +36,8 @@ const RegisterForm = () => {
         }
     })
 
+    const { signUp } = useAuth()
+
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
@@ -54,6 +57,7 @@ const RegisterForm = () => {
         }
 
         console.log(newData)
+        signUp(newData)
     }
 
     const validate = () => {
