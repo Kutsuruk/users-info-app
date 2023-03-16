@@ -1,11 +1,12 @@
 import TextField from "../common/form/TextField";
 import {useEffect, useState} from "react";
 import {validator} from "../../utils/validator";
-import api from "../../api";
 import SelectField from "../common/form/SelectField";
 import RadioField from "../common/form/RadioField";
 import MultiSelectField from "../common/form/MultiSelectField";
 import CheckBoxField from "../common/form/CheckBoxField";
+import {useQualities} from "../../hooks/useQualitites";
+import {useProfessions} from "../../hooks/useProfessions";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -17,8 +18,22 @@ const RegisterForm = () => {
         license: false,
     })
     const [errors, setErrors] = useState({})
-    const [professions, setProfessions] = useState()
-    const [qualities, setQualities] = useState()
+
+    const { qualities } = useQualities()
+    const qualitiesList = qualities.map(quality => {
+        return {
+            label: quality.name,
+            value: quality._id,
+        }
+    })
+
+    const { professions } = useProfessions()
+    const professionsList = professions.map(profession => {
+        return {
+            label: profession.name,
+            value: profession._id,
+        }
+    })
 
     const handleChange = (target) => {
         setData((prevState) => ({
@@ -30,7 +45,15 @@ const RegisterForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const isValid = validate()
+
         if (!isValid) return
+
+        const newData = {
+            ...data,
+            qualities: data.qualities.map(quality => quality.value)
+        }
+
+        console.log(newData)
     }
 
     const validate = () => {
@@ -82,11 +105,6 @@ const RegisterForm = () => {
         validate()
     }, [data])
 
-    useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data))
-        api.qualities.fetchAll().then((data) => setQualities(data))
-    }, [])
-
     return(
         <form onSubmit={handleSubmit}>
             <TextField label='Email'
@@ -105,7 +123,7 @@ const RegisterForm = () => {
             <SelectField data={data}
                          label='Профессия'
                          onChange={handleChange}
-                         options={professions}
+                         options={professionsList}
                          defaultOption='Choose...'
                          error={errors.profession}
                          value={data.profession}
@@ -123,7 +141,7 @@ const RegisterForm = () => {
             />
             <MultiSelectField onChange={handleChange}
                               label='Выберите несколько качеств'
-                              options={qualities}
+                              options={qualitiesList}
                               name='qualities'
                               defaultValue={data.qualities}
             />
