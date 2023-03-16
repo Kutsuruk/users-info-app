@@ -8,6 +8,7 @@ import CheckBoxField from "../common/form/CheckBoxField";
 import {useQualities} from "../../hooks/useQualitites";
 import {useProfessions} from "../../hooks/useProfessions";
 import {useAuth} from "../../hooks/useAuth";
+import {useHistory} from "react-router-dom";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -19,6 +20,7 @@ const RegisterForm = () => {
         license: false,
     })
     const [errors, setErrors] = useState({})
+    const history = useHistory()
 
     const { qualities } = useQualities()
     const qualitiesList = qualities.map(quality => {
@@ -55,11 +57,11 @@ const RegisterForm = () => {
             ...data,
             qualities: data.qualities.map(quality => quality.value)
         }
-
         console.log(newData)
 
         try {
             await signUp(newData)
+            history.push('/')
         } catch (error) {
             setErrors(error)
         }

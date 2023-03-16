@@ -25,11 +25,10 @@ const AuthProvider = ({ children }) => {
 
             setTokens(data)
             await createUser({ _id: data.localId, email })
-            console.log(data)
         } catch (error) {
             errorCatcher(error)
             const { code, message } = error.response.data.error
-            console.log(code, error)
+
             if (code === 400) {
                 if (message === 'EMAIL_EXIST') {
                     const errorObject ={ email: 'User with current email exist!' }
