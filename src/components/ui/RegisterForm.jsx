@@ -45,7 +45,7 @@ const RegisterForm = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const isValid = validate()
 
@@ -57,7 +57,12 @@ const RegisterForm = () => {
         }
 
         console.log(newData)
-        signUp(newData)
+
+        try {
+            await signUp(newData)
+        } catch (error) {
+            setErrors(error)
+        }
     }
 
     const validate = () => {
