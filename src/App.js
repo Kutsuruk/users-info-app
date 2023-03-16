@@ -9,11 +9,13 @@ import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import {ProfessionProvider} from "./hooks/useProfessions"
 import {QualityProvider} from "./hooks/useQualitites"
+import AuthProvider from "./hooks/useAuth";
 
 function App() {
     return(
         <>
-            <Navbar />
+            <AuthProvider>
+                <Navbar />
                 <QualityProvider>
                     <ProfessionProvider>
                         <Switch>
@@ -24,6 +26,7 @@ function App() {
                         </Switch>
                     </ProfessionProvider>
                 </QualityProvider>
+            </AuthProvider>
             <ToastContainer />
         </>
     )
