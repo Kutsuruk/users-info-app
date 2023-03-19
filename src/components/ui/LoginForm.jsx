@@ -3,6 +3,8 @@ import {useEffect, useState} from "react"
 import TextField from "../common/form/TextField"
 import CheckBoxField from "../common/form/CheckBoxField"
 import * as yup from 'yup'
+import {useAuth} from "../../hooks/useAuth";
+import {useHistory} from "react-router-dom";
 
 const LoginForm = () => {
     const [data, setData] = useState({
@@ -11,6 +13,9 @@ const LoginForm = () => {
         stayOn: false,
     })
     const [errors, setErrors] = useState({})
+    const [enterError, setEnterError] = useState(null)
+
+    const history = useHistory()
 
     const isValid = Object.keys(errors).length === 0
 
@@ -41,29 +46,36 @@ const LoginForm = () => {
 
     let validateSchema = yup.object().shape({
         password: yup.string()
-            .required('Password обязательно для заполнения')
-            .matches(/^(?=.*[A-Z])/, 'Password должен содержать заглавную букву')
-            .matches(/(?=.*[0-9])/, 'Password должен содержать хотя бы одно число')
-            .matches(/(?=.*[!@$%^&*])/, 'Password должен содержать один из символов !@$%^&*')
-            .matches(/(?=.{8,})/, 'Password должен содержать минимум 8 символов'),
+            .required('Password обязательно для заполнения'),
         email: yup.string()
             .required('Email обязательно для заполнения')
-            .email('Email введен некорректно'),
-
     })
+
+    const { logIn } = useAuth()
 
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }))
+
+        setEnterError(null)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const isValid = validate()
+
         if (!isValid) return
         console.log(data)
+
+
+        try {
+            await logIn(data)
+            history.push('/')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const validate = () => {
@@ -103,9 +115,11 @@ const LoginForm = () => {
                 Remember me
             </CheckBoxField>
 
+            {enterError && <p className='text-danger'>{enterError}</p>}
+
             <button className="btn btn-primary w-100 mx-auto"
                     type='submit'
-                    disabled={!isValid}
+                    disabled={!isValid || enterError}
             >
                 Login
             </button>

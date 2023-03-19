@@ -4,7 +4,12 @@ import userService from "../services/user.service";
 import {toast} from "react-toastify";
 import {setTokens} from "../services/localStorage.service";
 
-const httpAuth = axios.create()
+const httpAuth = axios.create({
+    baseURL: 'https://identitytoolkit.googleapis.com/v1/',
+    params: {
+        key: process.env.REACT_APP_FIREBASE_KEY
+    }
+})
 const AuthContext = React.createContext()
 
 export const useAuth = () => {
@@ -18,10 +23,12 @@ const AuthProvider = ({ children }) => {
 
     async function signUp({ email, password }) {
         const API_TOKEN = 'AIzaSyDkCGPovXq2ADPPQnaXMbQL0yApVYH0Tj4'
-        const URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_TOKEN}`
 
         try {
-            const { data } = await httpAuth.post(URL, { email, password, returnSecureToken: true })
+            const { data } = await httpAuth.post(
+                `accounts:signUp`,
+                { email, password, returnSecureToken: true }
+            )
 
             setTokens(data)
             await createUser({ _id: data.localId, email })
@@ -38,6 +45,23 @@ const AuthProvider = ({ children }) => {
 
         }
     }
+
+    async function logIn({ email, password }) {
+        const API_TOKEN = 'AIzaSyDkCGPovXq2ADPPQnaXMbQL0yApVYH0Tj4'
+
+        try {
+            const { data } = await httpAuth.post(
+                `accounts:signInWithPassword`,
+                { email, password, returnSecureToken: true }
+            )
+
+            setTokens(data)
+        } catch (error) {
+            errorCatcher(error)
+
+        }
+    }
+
     async function createUser(data) {
         try {
             const { content } = userService.create(data)
@@ -60,7 +84,7 @@ const AuthProvider = ({ children }) => {
     }, [error])
 
     return(
-        <AuthContext.Provider value={{signUp, currentUser}}>
+        <AuthContext.Provider value={{signUp, logIn,  currentUser}}>
             { children }
         </AuthContext.Provider>
     )
