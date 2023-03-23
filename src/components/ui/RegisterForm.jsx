@@ -13,6 +13,7 @@ import {useHistory} from "react-router-dom";
 const RegisterForm = () => {
     const [data, setData] = useState({
         email: '',
+        name: '',
         password: '',
         profession: '',
         sex: 'male',
@@ -79,15 +80,24 @@ const RegisterForm = () => {
     const validatorConfig = {
         email: {
             isRequired: {
-                message: 'Email обязательно для заполнения'
+                message: 'Email is required'
             },
             isEmail: {
                 message: 'Email введен некорректно'
             }
         },
+        name: {
+            isRequired: {
+                message: 'Name is required'
+            },
+            isMin: {
+                message: 'Name должен содержать минимум 3 символа',
+                value: 3
+            }
+        },
         password: {
             isRequired: {
-                message: 'Password обязательно для заполнения'
+                message: 'Password is required'
             },
             isCapitalistSymbol: {
                 message: 'Password должен содержать заглавную букву'
@@ -123,6 +133,12 @@ const RegisterForm = () => {
                        onChange={handleChange}
                        name='email'
                        error={errors.email}
+            />
+            <TextField label='Name'
+                       value={data.name}
+                       onChange={handleChange}
+                       name='name'
+                       error={errors.name}
             />
             <TextField label='Password'
                        type='password'
