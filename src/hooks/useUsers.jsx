@@ -40,11 +40,16 @@ export const UserProvider = ({children}) => {
         }
     }, [error])
 
+    function getUserById(userId) {
+        return users.find((user) => user._id === userId)
+    }
+
     return(
         <UserContext.Provider
             value={{
                 users,
                 getUsers,
+                getUserById,
         }}>
             { !isLoading ? children : 'Loading...' }
         </UserContext.Provider>

@@ -19,7 +19,7 @@ const NavProfile = () => {
 
             <div className={isOpen ? "w-100 dropdown-menu show" : "w-100 dropdown-menu"}>
                 <Link to={ `/users/${currentUser._id}` } className='dropdown-item'>Profile</Link>
-                <Link to='logout' className='dropdown-item'>
+                <Link to='/logout' className='dropdown-item'>
                     Log out
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="16"

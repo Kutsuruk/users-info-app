@@ -8,6 +8,7 @@ import UserTable from "../../ui/UsersTable"
 import _ from "lodash"
 import {useUsers} from "../../../hooks/useUsers";
 import {useProfessions} from "../../../hooks/useProfessions";
+import {useAuth} from "../../../hooks/useAuth";
 const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [selectedProf, setSelectedProf] = useState()
@@ -17,6 +18,7 @@ const UsersListPage = () => {
     const pageSize = 4
     const {users, getUsers} = useUsers()
     const { professions, isLoading } = useProfessions()
+    const { currentUser } = useAuth()
 
     const handleDelete = (userId) => {
         // setUsers(users.filter((user) => user._id !== userId))
@@ -57,16 +59,21 @@ const UsersListPage = () => {
     }
 
     if (users) {
-        const filteredUsers = searchQuery
-            ? users.filter((user) => user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
-            : selectedProf
-            ? users.filter(
-                (user) =>
-                    JSON.stringify(user.profession) ===
-                    JSON.stringify(selectedProf)
-            )
-            : users
+        function filterUsers(data) {
+            const filteredUsers = searchQuery
+                ? data.filter((user) => user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
+                : selectedProf
+                    ? data.filter(
+                        (user) =>
+                            JSON.stringify(user.profession) ===
+                            JSON.stringify(selectedProf)
+                    )
+                    : data
 
+            return filteredUsers.filter((user) =>  user._id !== currentUser._id)
+        }
+
+        const filteredUsers = filterUsers(users)
 
         const count = filteredUsers.length
         const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])

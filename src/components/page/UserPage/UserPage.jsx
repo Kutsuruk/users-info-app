@@ -5,13 +5,11 @@ import UserCard from "../../ui/UserCard";
 import QualitiesCard from "../../ui/QualitiesCard";
 import MeetingsCard from "../../ui/MeetingsCard";
 import Comments from "../../ui/Comments";
+import {useUsers} from "../../../hooks/useUsers";
 
 const UserPage = ({ userId }) => {
-    const [user, setUser] = useState()
-
-    useEffect(() => {
-        api.users.getById(userId).then((data) => setUser(data))
-    }, [])
+    const { getUserById } = useUsers()
+    const user = getUserById(userId)
 
     if (user) {
         return(
