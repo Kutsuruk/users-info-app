@@ -12,10 +12,7 @@ const NavProfile = () => {
             <div className="btn dropdown-toggle d-flex align-items-center">
                 <div className='me-2'>{currentUser.name}</div>
                 <img className='img-responsive rounded-circle'
-                     src={`https://avatars.dicebear.com/api/avataaars/${(
-                         Math.random() + 1)
-                         .toString(36)
-                         .substring(7)}.svg`} alt={currentUser.name}
+                     src={currentUser.image}
                      height='50'
                 />
             </div>
