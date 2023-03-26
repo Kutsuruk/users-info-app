@@ -3,11 +3,13 @@ import {useEffect, useState} from "react";
 import api from "../../api";
 import {useParams} from "react-router-dom";
 import CommentsList, {AddCommentForm} from "../common/comments";
+import {useComments} from "../../hooks/useComments";
 
 const Comments = () => {
     const {userId} = useParams()
     const [comments, setComments] = useState([])
-    const sortedComments = orderBy(comments, ["created_at"], ["desc"]);
+    const sortedComments = orderBy(comments, ["created_at"], ["desc"])
+    const { createComment } = useComments()
 
     useEffect(() => {
         api.comments
@@ -16,10 +18,11 @@ const Comments = () => {
     }, [])
 
     const handleSubmitComments = (data) => {
-        console.log('add', comments)
-        api.comments
-            .add({ ...data, pageId: userId })
-            .then((data) => setComments([...comments, data]))
+        // console.log('add', comments)
+        // api.comments
+        //     .add({ ...data, pageId: userId })
+        //     .then((data) => setComments([...comments, data]))
+        createComment(data)
     }
     const handleRemoveComments = (id) => {
         console.log('removed', comments)
