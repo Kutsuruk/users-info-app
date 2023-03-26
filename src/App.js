@@ -11,6 +11,7 @@ import {ProfessionProvider} from "./hooks/useProfessions"
 import {QualityProvider} from "./hooks/useQualitites"
 import AuthProvider from "./hooks/useAuth";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import Logout from "./layouts/Logout";
 
 function App() {
     return(
@@ -25,6 +26,9 @@ function App() {
                             />
                             <Route path='/login/:type?'
                                    component={Login}
+                            />
+                            <Route path='/logout'
+                                   component={Logout}
                             />
                             <Route path='/'
                                    component={Main}
