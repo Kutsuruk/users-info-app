@@ -9,10 +9,10 @@ import {useAuth} from "../../../hooks/useAuth";
 import {useQualities} from "../../../hooks/useQualitites";
 import {useProfessions} from "../../../hooks/useProfessions";
 import {value} from "lodash/seq";
+import {useHistory} from "react-router-dom";
 
 const EditUserPage = () => {
-    // const { userId } = useParams()
-    // const history = useHistory()
+    const history = useHistory()
     const [isLoading, setIsLoading] = useState(true)
     const [data, setData] = useState()
     const { currentUser, updateUserData } = useAuth()
@@ -34,41 +34,13 @@ const EditUserPage = () => {
         }
     })
 
-    // const getProfessionById = (id) => {
-    //     for (const prof of professions) {
-    //         if (prof.value === id) {
-    //             return { _id: prof.value, name: prof.label }
-    //         }
-    //     }
-    // }
-    // const getQualities = (elements) => {
-    //     const qualitiesArray = []
-    //
-    //     for (const elem of elements) {
-    //         for (const quality in qualities) {
-    //             if (elem.value === qualities[quality].value) {
-    //                 qualitiesArray.push({
-    //                     _id: qualities[quality].value,
-    //                     name: qualities[quality].label,
-    //                     color: qualities[quality].color
-    //                 })
-    //             }
-    //         }
-    //     }
-    //     return qualitiesArray
-    // }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const isValid = validate()
         if (!isValid) return
-        // const { profession, qualities } = data;
-        // api.users
-        //     .update(userId, {
-        //         ...data,
-        //         profession: getProfessionById(profession),
-        //         qualities: getQualities(qualities)
-        //     })
-        //     .then((data) => history.push(`/users/${data._id}`))
+        await updateUserData({...data, qualities: data.qualities.map((quality) => quality.value)})
+
+        history.push(`/users/${currentUser._id}`)
     }
 
     const getQualitiesListByIds = (qualitiesIds) => {
@@ -111,15 +83,15 @@ const EditUserPage = () => {
     const validatorConfig = {
         email: {
             isRequired: {
-                message: "Электронная почта обязательна для заполнения"
+                message: "Email is required"
             },
             isEmail: {
-                message: "Email введен некорректно"
+                message: "Email incorrect"
             }
         },
         name: {
             isRequired: {
-                message: "Введите ваше имя"
+                message: "Enter your name"
             }
         }
     }
