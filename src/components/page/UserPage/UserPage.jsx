@@ -1,6 +1,4 @@
 import PropTypes from "prop-types"
-import {useEffect, useState} from "react";
-import api from "../../../api";
 import UserCard from "../../ui/UserCard";
 import QualitiesCard from "../../ui/QualitiesCard";
 import MeetingsCard from "../../ui/MeetingsCard";
